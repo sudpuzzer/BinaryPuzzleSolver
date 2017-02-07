@@ -17,45 +17,34 @@ using System.Windows.Shapes;
 
 namespace BinaryPuzzleSolver
 {
-public class puzzleSize : INotifyPropertyChanged
-    {
-        private int size;
-        public int Size
-        {
-            get { return this.size; }
-            set
-            {
-                if(this.size != value)
-                {
-                    this.size = value;
-                    this.NotifyPropertyChanged("Size");
-                }
-            }
-        }
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        public void NotifyPropertyChanged(string propName)
-        {
-            if (this.PropertyChanged != null)
-                this.PropertyChanged(this, new PropertyChangedEventArgs(propName));
-        }
-    }
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
-        private puzzleSize puzzle = new puzzleSize() { Size = 1 };
+        int puzzleSize;
 
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = this;
+            puzzleSizeSelector.Text = "Select Size";
         }
 
         private void puzzleSizeSelector_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            puzzle.Size = 2;
+            switch (puzzleSizeSelector.SelectedIndex)
+            {
+                case 0:
+                    puzzleSize = 2;
+                        break;
+                case 1:
+                    puzzleSize = 3;
+                    break;
+                case 2:
+                    puzzleSize = 4;
+                    break;
+            }
+            puzzleSizeText.Text = puzzleSize.ToString();
         }
     }
     
